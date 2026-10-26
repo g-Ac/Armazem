@@ -1,0 +1,29 @@
+# Exemplo de serviço systemd para rodar a automação 24/7 no Linux / Raspberry Pi / VPS
+# Como instalar:
+#   1. Ajuste os caminhos User= e WorkingDirectory= abaixo
+#   2. sudo cp deploy/automacao.service /etc/systemd/system/automacao.service
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable --now automacao
+#   5. sudo systemctl status automacao --no-pager
+#   6. journalctl -u automacao -f
+
+[Unit]
+Description=Bot de Monitoramento e Automacao 24x7
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/projects/armazem/templates/automacao-python
+EnvironmentFile=/home/pi/projects/armazem/templates/automacao-python/.env
+ExecStart=/home/pi/projects/armazem/templates/automacao-python/.venv/bin/python -m src.bot
+Restart=always
+RestartSec=5
+
+# Segurança básica do processo
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

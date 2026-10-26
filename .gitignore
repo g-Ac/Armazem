@@ -1,0 +1,38 @@
+# Segredos e variáveis locais (NUNCA subir para o Git!)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials*.json
+
+# Node / Web
+node_modules/
+build/
+dist/
+.react-router/
+generated/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Bancos locais e logs
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.log
+runtime/
+
+# Sistema operacional / Editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
