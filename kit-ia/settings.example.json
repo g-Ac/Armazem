@@ -1,0 +1,18 @@
+{
+  "$comment": "Exemplo limpo para ~/.claude/settings.json — roda pytest automaticamente ao editar arquivos .py",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // .tool_response.filePath' < /dev/stdin); case \"$f\" in *.py) if [ -f pytest.ini ] || [ -d tests ]; then python3 -m pytest --tb=short -q 2>&1 || true; fi ;; esac",
+            "timeout": 45,
+            "statusMessage": "Rodando testes automáticos..."
+          }
+        ]
+      }
+    ]
+  }
+}
